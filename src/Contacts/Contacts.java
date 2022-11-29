@@ -1,6 +1,5 @@
 package Contacts;
 
-
 import java.io.Serializable;
 
 public class Contacts implements Serializable {

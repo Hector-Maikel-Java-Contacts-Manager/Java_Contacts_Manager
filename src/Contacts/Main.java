@@ -15,6 +15,33 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
+        String directory = "./src/data";
+        String filename = "contactList.txt";
+        Path dataDirectory = Paths.get(directory);
+        Path dataFile = Paths.get(directory, filename);
+
+        if (Files.notExists(dataDirectory)) {
+            Files.createDirectories(dataDirectory);
+        }
+
+        if (Files.notExists(dataFile)) {
+            Files.createFile(dataFile);
+        }
+
+        // Initial Contact List
+        List<Contacts> contactList = new ArrayList<>();
+        Contacts gooseObj = new Contacts("Nick Bradshaw", "Goose", "975-234-8854");
+        Contacts icemanObj = new Contacts("Tom Kazansky", "Iceman", "232-764-8989");
+        Contacts maverickObj = new Contacts ("Pete Mitchell", "Maverick", "523-743-2154");
+        contactList.add(gooseObj);
+        contactList.add(icemanObj);
+        contactList.add(maverickObj);
+
+        for (var contact : contactList) {
+            Files.write(dataFile, List.of(contact.getName() + " | " + contact.getCallSign() + " | " + contact.getNumber()));
+        }
+
+        //Main Menu
         boolean keepGoing = true;
         while (keepGoing) {
             Scanner myScanner = new Scanner(System.in);
@@ -52,60 +79,36 @@ public class Main {
         }
 
 
-        String directory = "./src/data";
-        String filename = "contactList.txt";
-        Path dataDirectory = Paths.get(directory);
-        Path dataFile = Paths.get(directory, filename);
-
-        if (Files.notExists(dataDirectory)) {
-            Files.createDirectories(dataDirectory);
-        }
-
-        if (Files.notExists(dataFile)) {
-            Files.createFile(dataFile);
-        }
-
-        // Initial Contact List
-        List<Contacts> contactList = new ArrayList<>();
-        Contacts gooseObj = new Contacts("Nick Bradshaw", "Goose", "975-234-8854");
-        Contacts icemanObj = new Contacts("Tom Kazansky", "Iceman", "232-764-8989");
-        Contacts maverickObj = new Contacts ("Pete Mitchell", "Maverick", "523-743-2154");
-        contactList.add(gooseObj);
-        contactList.add(icemanObj);
-        contactList.add(maverickObj);
-
-        //        Files.write(dataFile, contactList);
-
         List<String> printListFromFile = Files.readAllLines(dataFile);
         System.out.println(printListFromFile);
 
-        public Contacts readInContact(){
-            var newContact = new Contacts("","", "");
-
-            System.out.print("Please enter your name: ");
-            String personName = inputScanner.nextLine();
-            System.out.print("Please enter your phone number:");
-            String personPhoneNumber = this.inputScanner.nextLine();
-
-            newContact.setName(personName);
-            newContact.setPhoneNumber(personPhoneNumber);
-            return newContact;
-        }
-
-        public Contacts createContacts(Scanner myScanner) {
-            var newContact = new Contacts("","", "");
-
-            System.out.println("Enter the name:  ");
-            String contactName = myScanner.nextLine();
-            System.out.println("Enter the call-sign:  ");
-            String contactCallSign = myScanner.nextLine();
-            System.out.println("Enter the number:  ");
-            String contactNumber = myScanner.nextLine();
-
-            newContact.setName(contactName);
-            newContact.setCallSign(contactCallSign);
-            newContact.setNumber(contactNumber);
-            contactList.add(newContact);
-        }
+//        public Contacts readInContact(){
+//            var newContact = new Contacts("","", "");
+//
+//            System.out.print("Please enter your name: ");
+//            String personName = inputScanner.nextLine();
+//            System.out.print("Please enter your phone number:");
+//            String personPhoneNumber = this.inputScanner.nextLine();
+//
+//            newContact.setName(personName);
+//            newContact.setPhoneNumber(personPhoneNumber);
+//            return newContact;
+//        }
+//
+//        public Contacts createContacts(Scanner myScanner) {
+//            var newContact = new Contacts("","", "");
+//
+//            System.out.println("Enter the name:  ");
+//            String contactName = myScanner.nextLine();
+//            System.out.println("Enter the call-sign:  ");
+//            String contactCallSign = myScanner.nextLine();
+//            System.out.println("Enter the number:  ");
+//            String contactNumber = myScanner.nextLine();
+//
+//            newContact.setName(contactName);
+//            newContact.setCallSign(contactCallSign);
+//            newContact.setNumber(contactNumber);
+//            contactList.add(newContact);
+//        }
     }
 }
