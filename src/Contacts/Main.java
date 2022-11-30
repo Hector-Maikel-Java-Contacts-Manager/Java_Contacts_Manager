@@ -28,13 +28,9 @@ public class Main {
         if (Files.notExists(dataDirectory)) {
             Files.createDirectories(dataDirectory);
         }
-
         if (Files.notExists(dataFile)) {
             Files.createFile(dataFile);
         }
-
-        //Initial Contact List
-        List<Contacts> contactList = new ArrayList<>();
 
         //Main Menu
         System.out.println("               \\ /                                          \\   /\n" +
@@ -104,7 +100,13 @@ public class Main {
 
             } else if (optionChoice == 4) {
                 // Delete Contact
-                System.out.println("You chose option 4");
+                    System.out.println("Select pilot to delete");
+                    String searchString = myScanner.nextLine();
+                    for (int i = 0; i < printListFromFile.size(); i++) {
+                        if (printListFromFile.get(i).contains(searchString)) {
+                            printListFromFile.remove(printListFromFile.get(i));
+                        }
+                    }
             } else if (optionChoice == 5) {
                 System.out.println("Goodbye and fair skies!");
                 keepGoing = false;
