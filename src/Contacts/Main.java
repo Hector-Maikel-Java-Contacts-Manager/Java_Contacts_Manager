@@ -12,9 +12,12 @@ import java.util.Scanner;
 
 
 public class Main {
-
     public static void main(String[] args) throws IOException {
 
+        //Global scanner
+        Scanner myScanner = new Scanner(System.in);
+
+        //Create directory & contactList file
         String directory = "./src/data";
         String filename = "contactList.txt";
         Path dataDirectory = Paths.get(directory);
@@ -28,25 +31,12 @@ public class Main {
             Files.createFile(dataFile);
         }
 
-        // Initial Contact List
+        //Initial Contact List
         List<Contacts> contactList = new ArrayList<>();
-        Contacts gooseObj = new Contacts("Nick Bradshaw", "Goose", "975-234-8854");
-        Contacts icemanObj = new Contacts("Tom Kazansky", "Iceman", "232-764-8989");
-        Contacts maverickObj = new Contacts ("Pete Mitchell", "Maverick", "523-743-2154");
-        contactList.add(gooseObj);
-        contactList.add(maverickObj);
-        contactList.add(icemanObj);
-
-        for (var contact : contactList) {
-            Files.write(dataFile, List.of(contact.getName() + " | " + contact.getCallSign() + " | " + contact.getNumber()), StandardOpenOption.APPEND);
-        }
-
-        List<String> printListFromFile = Files.readAllLines(dataFile);
 
         //Main Menu
         boolean keepGoing = true;
         while (keepGoing) {
-            Scanner myScanner = new Scanner(System.in);
 
             // Main Menu
             System.out.println("Welcome to Top Gun Mobile");
@@ -54,17 +44,27 @@ public class Main {
             System.out.println("2.  Add a new pilot.");
             System.out.println("3.  Search pilot by name.");
             System.out.println("4.  Delete an existing pilot.");
-            System.out.println("5.  Deploy Parachute (Exit).");
+            System.out.println("5.  Eject, Eject, Eject!");
             System.out.println("Enter an option (1, 2, 3, 4, or 5):");
             int optionChoice = myScanner.nextInt();
+            myScanner.nextLine();
 
             // Complete User Request
             if (optionChoice == 1) {
                 // Read All Contacts
+                List<String> printListFromFile = Files.readAllLines(dataFile);
                 System.out.println(printListFromFile);
                 System.out.println("\nYou chose option 1\n");
             } else if (optionChoice == 2) {
                 // Create Contact
+                System.out.print("Enter Pilot Name: ");
+                String pilotName = myScanner.nextLine();
+                System.out.print("Enter Pilot Callsign: ");
+                String pilotCallsign = myScanner.nextLine();
+                System.out.print("Enter Pilot Number: ");
+                String pilotNumber = myScanner.nextLine();
+                Contacts myPilot = new Contacts(pilotName, pilotCallsign, pilotNumber);
+                Files.write(dataFile, List.of(myPilot.getName() + " | " + myPilot.getCallSign() + " | " + myPilot.getNumber()), StandardOpenOption.APPEND);
                 System.out.println("\nYou chose option 2\n");
             } else if (optionChoice == 3) {
                 // Search for Contact
