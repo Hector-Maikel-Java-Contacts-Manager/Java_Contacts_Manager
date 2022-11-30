@@ -84,7 +84,7 @@ public class Main {
                     myScanner.nextLine();
                     if (searchOption == 1){
 
-                    } else if (searchOption ==2){
+                    } else if (searchOption == 2){
 
                     } else if (searchOption == 3){
 
