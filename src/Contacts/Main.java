@@ -10,23 +10,6 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static String formatNum(String num) {
-        if (num.length() == 7) {
-            String first = num.substring(0, 3);
-            String second = num.substring(3, 7);
-            String result = first + "-" + second;
-            return result;
-        }
-        else if (num.length() == 10) {
-            String first = num.substring(0, 3);
-            String second = num.substring(3, 6);
-            String third = num.substring(6, 10);
-            String result = "(" + first + ")-" + second + "-" + third;
-            return result;
-        }
-        return "Invalid Number";
-    }
-
     public static void main(String[] args) throws IOException {
 
         //Global scanner
@@ -38,6 +21,7 @@ public class Main {
         Path dataDirectory = Paths.get(directory);
         Path dataFile = Paths.get(directory, filename);
 
+        // Check if Exists
         if (Files.notExists(dataDirectory)) {
             Files.createDirectories(dataDirectory);
         }
@@ -91,9 +75,31 @@ public class Main {
                 System.out.print("Enter Pilot Number: ");
                 String pilotNumber = myScanner.nextLine();
                 pilotNumber = formatNum(pilotNumber);
+                String answer = "";
+                int index = 0;
+                boolean bool = false;
+                String overwrite = "";
+                for (int i = 0; i < printListFromFile.size(); i++) {
+                    if (printListFromFile.get(i).toLowerCase().contains(pilotName.toLowerCase()) || printListFromFile.get(i).toLowerCase().contains(pilotCallsign.toLowerCase()) || printListFromFile.get(i).toLowerCase().contains(pilotNumber.toLowerCase())) {
+                        System.out.println("There's already a pilot with that info.  Do you want to overwrite it?  [Y/N]");
+                        answer = myScanner.nextLine();
+                        bool = true;
+                        if (answer.equalsIgnoreCase("y")) {
+                            index = i;
+                            overwrite = printListFromFile.get(i);
+                        }
+                    }
+                }
+
                 Contacts myPilot = new Contacts(pilotName, pilotCallsign, pilotNumber);
-                Files.write(dataFile, List.of(myPilot.getName() + " | " + myPilot.getCallSign() + " | " + myPilot.getNumber()), StandardOpenOption.APPEND);
-                System.out.println("Pilot added successfully");
+                if (bool) {
+                    Contacts overwritePilot = new Contacts(pilotName, pilotCallsign, pilotNumber);
+                    printListFromFile.set(index, overwritePilot.getName() + " | " + overwritePilot.getCallSign() + " | " + overwritePilot.getNumber());
+                    Files.write(dataFile, printListFromFile);
+                } else {
+                    Files.write(dataFile, List.of(myPilot.getName() + " | " + myPilot.getCallSign() + " | " + myPilot.getNumber()), StandardOpenOption.APPEND);
+                    System.out.println("Pilot added successfully");
+                }
 
                 // Search for Contact
             } else if (optionChoice == 3) {
@@ -140,4 +146,22 @@ public class Main {
             }
         }
     }
+
+
+    // Number Formatting
+    public static String formatNum(String num) {
+        if (num.length() == 7) {
+            String first = num.substring(0, 3);
+            String second = num.substring(3, 7);
+            return first + "-" + second;
+        }
+        else if (num.length() == 10) {
+            String first = num.substring(0, 3);
+            String second = num.substring(3, 6);
+            String third = num.substring(6, 10);
+            return "(" + first + ")-" + second + "-" + third;
+        }
+        return "(000)-000-0000";
+    }
+
 }
