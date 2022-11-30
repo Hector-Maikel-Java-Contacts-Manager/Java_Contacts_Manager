@@ -34,12 +34,14 @@ public class Main {
         Contacts icemanObj = new Contacts("Tom Kazansky", "Iceman", "232-764-8989");
         Contacts maverickObj = new Contacts ("Pete Mitchell", "Maverick", "523-743-2154");
         contactList.add(gooseObj);
-        contactList.add(icemanObj);
         contactList.add(maverickObj);
+        contactList.add(icemanObj);
 
         for (var contact : contactList) {
-            Files.write(dataFile, List.of(contact.getName() + " | " + contact.getCallSign() + " | " + contact.getNumber()));
+            Files.write(dataFile, List.of(contact.getName() + " | " + contact.getCallSign() + " | " + contact.getNumber()), StandardOpenOption.APPEND);
         }
+
+        List<String> printListFromFile = Files.readAllLines(dataFile);
 
         //Main Menu
         boolean keepGoing = true;
@@ -59,10 +61,11 @@ public class Main {
             // Complete User Request
             if (optionChoice == 1) {
                 // Read All Contacts
-                System.out.println("You chose option 1");
+                System.out.println(printListFromFile);
+                System.out.println("\nYou chose option 1\n");
             } else if (optionChoice == 2) {
                 // Create Contact
-                System.out.println("You chose option 2");
+                System.out.println("\nYou chose option 2\n");
             } else if (optionChoice == 3) {
                 // Search for Contact
                 // Get user input, iterate through contactList, if exists return contact info, else return "does not exist"
