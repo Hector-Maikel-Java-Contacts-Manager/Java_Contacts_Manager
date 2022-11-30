@@ -45,7 +45,6 @@ public class Main {
                 "                                 \"\\_/\"   \"\\_/\"");
         boolean keepGoing = true;
         while (keepGoing) {
-
             // Main Menu
             System.out.println("\nWelcome to Top Gun Mobile");
             System.out.println("1.  View all pilots.");
@@ -89,13 +88,13 @@ public class Main {
                 while (keepSearching) {
                     System.out.println("Search pilot");
                     String searchString = myScanner.nextLine();
+                    System.out.println("---------------------------------------------------");
                     for (int i = 0; i < printListFromFile.size(); i++) {
                         if (printListFromFile.get(i).contains(searchString)) {
-                            System.out.println("---------------------------------------------------");
                             System.out.println(printListFromFile.get(i));
-                            System.out.println("---------------------------------------------------");
                         }
                     }
+                    System.out.println("---------------------------------------------------");
                     System.out.println("\n1.  Search another pilot");
                     System.out.println("2.  Back to main menu");
                     int returnOrNo = myScanner.nextInt();
@@ -109,11 +108,15 @@ public class Main {
             } else if (optionChoice == 4) {
                     System.out.println("Select pilot to delete");
                     String searchString = myScanner.nextLine();
+                    String blank = "";
                     for (int i = 0; i < printListFromFile.size(); i++) {
                         if (printListFromFile.get(i).contains(searchString)) {
-                            printListFromFile.remove(printListFromFile.get(i));
+                            blank = printListFromFile.get(i);
                         }
-                    }
+                    } printListFromFile.remove(blank);
+                Files.write(dataFile, printListFromFile);
+
+
 
                 // Exit App
             } else if (optionChoice == 5) {
