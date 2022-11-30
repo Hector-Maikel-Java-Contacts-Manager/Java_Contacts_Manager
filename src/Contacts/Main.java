@@ -1,17 +1,12 @@
 package Contacts;
 
-import javax.sound.midi.Soundbank;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -69,7 +64,6 @@ public class Main {
                 }
                 System.out.println("---------------------------------------------------");
 
-
                 // Create Contact
             } else if (optionChoice == 2) {
                 System.out.print("Enter Pilot Name: ");
@@ -115,8 +109,6 @@ public class Main {
                         }
                     } printListFromFile.remove(blank);
                 Files.write(dataFile, printListFromFile);
-
-
 
                 // Exit App
             } else if (optionChoice == 5) {
