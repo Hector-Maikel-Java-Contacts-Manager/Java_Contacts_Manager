@@ -1,10 +1,12 @@
 package Contacts;
 
+import javax.sound.midi.Soundbank;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,7 +41,7 @@ public class Main {
         while (keepGoing) {
 
             // Main Menu
-            System.out.println("Welcome to Top Gun Mobile");
+            System.out.println("\nWelcome to Top Gun Mobile");
             System.out.println("1.  View all pilots.");
             System.out.println("2.  Add a new pilot.");
             System.out.println("3.  Search pilot by name.");
@@ -53,8 +55,11 @@ public class Main {
             if (optionChoice == 1) {
                 // Read All Contacts
                 List<String> printListFromFile = Files.readAllLines(dataFile);
-                System.out.println(printListFromFile);
-                System.out.println("\nYou chose option 1\n");
+                for (String line : printListFromFile){
+                    String[] tokens = line.split("\\|");
+                    System.out.printf("%-15s |%-15s |%-15s |\n", tokens[0], tokens[1], tokens[2]);
+                }
+
             } else if (optionChoice == 2) {
                 // Create Contact
                 System.out.print("Enter Pilot Name: ");
@@ -65,11 +70,29 @@ public class Main {
                 String pilotNumber = myScanner.nextLine();
                 Contacts myPilot = new Contacts(pilotName, pilotCallsign, pilotNumber);
                 Files.write(dataFile, List.of(myPilot.getName() + " | " + myPilot.getCallSign() + " | " + myPilot.getNumber()), StandardOpenOption.APPEND);
-                System.out.println("\nYou chose option 2\n");
+
             } else if (optionChoice == 3) {
                 // Search for Contact
                 // Get user input, iterate through contactList, if exists return contact info, else return "does not exist"
-                System.out.println("You chose option 3");
+                boolean keepSearching = true;
+                while (keepSearching) {
+                    System.out.println("1.  Search by name");
+                    System.out.println("2.  Search by callsign");
+                    System.out.println("3.  Search by phone number");
+                    System.out.print(" Select a search option: ");
+                    int searchOption = myScanner.nextInt();
+                    myScanner.nextLine();
+                    if (searchOption == 1){
+
+                    } else if (searchOption ==2){
+
+                    } else if (searchOption == 3){
+
+                    } else {
+                        System.out.println("Please select valid option");
+                    }
+                }
+
             } else if (optionChoice == 4) {
                 // Delete Contact
                 System.out.println("You chose option 4");
@@ -80,7 +103,6 @@ public class Main {
                 System.out.println("Please an option 1-5");
             }
         }
-
 
         List<String> printListFromFile = Files.readAllLines(dataFile);
         System.out.println(printListFromFile);
