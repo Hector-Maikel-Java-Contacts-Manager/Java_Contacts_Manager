@@ -1,4 +1,2 @@
-Pete Mitchell | Maverick | 111-222-3333
-Nick Bradshaw | Goose | 222-333-4444
-Tom Kazansky | Iceman | 232-842-1245
-Jake Seresin | Hangman | 222-333-4444
+Pete Mitchell | Maverick | (111)-222-3333
+Tom Kazansky | Iceman | (222)-333-4444

@@ -9,6 +9,24 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+
+    public static String formatNum(String num) {
+        if (num.length() == 7) {
+            String first = num.substring(0, 3);
+            String second = num.substring(3, 7);
+            String result = first + "-" + second;
+            return result;
+        }
+        else if (num.length() == 10) {
+            String first = num.substring(0, 3);
+            String second = num.substring(3, 6);
+            String third = num.substring(6, 10);
+            String result = "(" + first + ")-" + second + "-" + third;
+            return result;
+        }
+        return "Invalid Number";
+    }
+
     public static void main(String[] args) throws IOException {
 
         //Global scanner
@@ -72,6 +90,7 @@ public class Main {
                 String pilotCallsign = myScanner.nextLine();
                 System.out.print("Enter Pilot Number: ");
                 String pilotNumber = myScanner.nextLine();
+                pilotNumber = formatNum(pilotNumber);
                 Contacts myPilot = new Contacts(pilotName, pilotCallsign, pilotNumber);
                 Files.write(dataFile, List.of(myPilot.getName() + " | " + myPilot.getCallSign() + " | " + myPilot.getNumber()), StandardOpenOption.APPEND);
                 System.out.println("Pilot added successfully");
@@ -82,13 +101,13 @@ public class Main {
                 while (keepSearching) {
                     System.out.println("Search pilot");
                     String searchString = myScanner.nextLine();
-                    System.out.println("---------------------------------------------------");
+                    System.out.println("------------------------------------------");
                     for (int i = 0; i < printListFromFile.size(); i++) {
-                        if (printListFromFile.get(i).contains(searchString)) {
+                        if (printListFromFile.get(i).toLowerCase().contains(searchString.toLowerCase())) {
                             System.out.println(printListFromFile.get(i));
                         }
                     }
-                    System.out.println("---------------------------------------------------");
+                    System.out.println("------------------------------------------");
                     System.out.println("\n1.  Search another pilot");
                     System.out.println("2.  Back to main menu");
                     int returnOrNo = myScanner.nextInt();

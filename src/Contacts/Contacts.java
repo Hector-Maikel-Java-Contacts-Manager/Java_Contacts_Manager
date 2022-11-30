@@ -7,7 +7,6 @@ public class Contacts implements Serializable {
     private String callSign;
     private String number;
 
-
     // Constructor
     public Contacts(String name, String callSign, String number) {
         this.name = name;
