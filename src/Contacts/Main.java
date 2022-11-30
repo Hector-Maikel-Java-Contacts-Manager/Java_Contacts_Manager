@@ -32,7 +32,7 @@ public class Main {
             Files.createFile(dataFile);
         }
 
-        //Main Menu
+        // Landing Page
         System.out.println("               \\ /                                          \\   /\n" +
                 "              --o--           `\\\\             //'      .____-/.\\-____.\n" +
                 "                                \\\\           //             ~`-'~\n" +
@@ -58,17 +58,21 @@ public class Main {
             myScanner.nextLine();
             List<String> printListFromFile = Files.readAllLines(dataFile);
 
-
             // Complete User Request
             if (optionChoice == 1) {
                 // Read All Contacts
+                System.out.println("---------------------------------------------------");
+                System.out.printf("%-15s |%-15s |%-15s |\n", "NAME", " CALLSIGN", " PHONE NUMBER");
+                System.out.println("---------------------------------------------------");
                 for (String line : printListFromFile){
                     String[] tokens = line.split("\\|");
                     System.out.printf("%-15s |%-15s |%-15s |\n", tokens[0], tokens[1], tokens[2]);
                 }
+                System.out.println("---------------------------------------------------");
 
-            } else if (optionChoice == 2) {
+
                 // Create Contact
+            } else if (optionChoice == 2) {
                 System.out.print("Enter Pilot Name: ");
                 String pilotName = myScanner.nextLine();
                 System.out.print("Enter Pilot Callsign: ");
@@ -77,19 +81,22 @@ public class Main {
                 String pilotNumber = myScanner.nextLine();
                 Contacts myPilot = new Contacts(pilotName, pilotCallsign, pilotNumber);
                 Files.write(dataFile, List.of(myPilot.getName() + " | " + myPilot.getCallSign() + " | " + myPilot.getNumber()), StandardOpenOption.APPEND);
+                System.out.println("Pilot added successfully");
 
-            } else if (optionChoice == 3) {
                 // Search for Contact
+            } else if (optionChoice == 3) {
                 boolean keepSearching = true;
                 while (keepSearching) {
                     System.out.println("Search pilot");
                     String searchString = myScanner.nextLine();
                     for (int i = 0; i < printListFromFile.size(); i++) {
                         if (printListFromFile.get(i).contains(searchString)) {
+                            System.out.println("---------------------------------------------------");
                             System.out.println(printListFromFile.get(i));
+                            System.out.println("---------------------------------------------------");
                         }
                     }
-                    System.out.println("1.  Search another pilot");
+                    System.out.println("\n1.  Search another pilot");
                     System.out.println("2.  Back to main menu");
                     int returnOrNo = myScanner.nextInt();
                     myScanner.nextLine();
@@ -98,8 +105,8 @@ public class Main {
                     }
                 }
 
-            } else if (optionChoice == 4) {
                 // Delete Contact
+            } else if (optionChoice == 4) {
                     System.out.println("Select pilot to delete");
                     String searchString = myScanner.nextLine();
                     for (int i = 0; i < printListFromFile.size(); i++) {
@@ -107,44 +114,16 @@ public class Main {
                             printListFromFile.remove(printListFromFile.get(i));
                         }
                     }
+
+                // Exit App
             } else if (optionChoice == 5) {
                 System.out.println("Goodbye and fair skies!");
                 keepGoing = false;
+
+                // Invalid Input
             } else {
                 System.out.println("Please an option 1-5");
             }
         }
-
-        List<String> printListFromFile = Files.readAllLines(dataFile);
-        System.out.println(printListFromFile);
-
-//        public Contacts readInContact(){
-//            var newContact = new Contacts("","", "");
-//
-//            System.out.print("Please enter your name: ");
-//            String personName = inputScanner.nextLine();
-//            System.out.print("Please enter your phone number:");
-//            String personPhoneNumber = this.inputScanner.nextLine();
-//
-//            newContact.setName(personName);
-//            newContact.setPhoneNumber(personPhoneNumber);
-//            return newContact;
-//        }
-//
-//        public Contacts createContacts(Scanner myScanner) {
-//            var newContact = new Contacts("","", "");
-//
-//            System.out.println("Enter the name:  ");
-//            String contactName = myScanner.nextLine();
-//            System.out.println("Enter the call-sign:  ");
-//            String contactCallSign = myScanner.nextLine();
-//            System.out.println("Enter the number:  ");
-//            String contactNumber = myScanner.nextLine();
-//
-//            newContact.setName(contactName);
-//            newContact.setCallSign(contactCallSign);
-//            newContact.setNumber(contactNumber);
-//            contactList.add(newContact);
-//        }
     }
 }
