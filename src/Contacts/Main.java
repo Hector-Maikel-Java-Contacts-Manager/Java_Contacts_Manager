@@ -37,6 +37,16 @@ public class Main {
         List<Contacts> contactList = new ArrayList<>();
 
         //Main Menu
+        System.out.println("               \\ /                                          \\   /\n" +
+                "              --o--           `\\\\             //'      .____-/.\\-____.\n" +
+                "                                \\\\           //             ~`-'~\n" +
+                "                                 \\\\. __-__ .//\n" +
+                "                       ___/-_.-.__`/~     ~\\'__.-._-\\___                    \n" +
+                ".|.       ___________.'__/__ ~-[ \\.\\'-----'/./ ]-~ __\\__`.___________       .|.\n" +
+                "~o~~~~~~~--------______-~~~~~-_/_/ |   .   | \\_\\_-~~~~~-______--------~~~~~~~o~\n" +
+                "' `               + + +  (X)(X)  ~--\\__ __/--~  (X)(X)  + + +               ' `\n" +
+                "                             (X) `/.\\' ~ `/.\\' (X)  \n" +
+                "                                 \"\\_/\"   \"\\_/\"");
         boolean keepGoing = true;
         while (keepGoing) {
 
@@ -50,11 +60,12 @@ public class Main {
             System.out.println("Enter an option (1, 2, 3, 4, or 5):");
             int optionChoice = myScanner.nextInt();
             myScanner.nextLine();
+            List<String> printListFromFile = Files.readAllLines(dataFile);
+
 
             // Complete User Request
             if (optionChoice == 1) {
                 // Read All Contacts
-                List<String> printListFromFile = Files.readAllLines(dataFile);
                 for (String line : printListFromFile){
                     String[] tokens = line.split("\\|");
                     System.out.printf("%-15s |%-15s |%-15s |\n", tokens[0], tokens[1], tokens[2]);
@@ -73,23 +84,21 @@ public class Main {
 
             } else if (optionChoice == 3) {
                 // Search for Contact
-                // Get user input, iterate through contactList, if exists return contact info, else return "does not exist"
                 boolean keepSearching = true;
                 while (keepSearching) {
-                    System.out.println("1.  Search by name");
-                    System.out.println("2.  Search by callsign");
-                    System.out.println("3.  Search by phone number");
-                    System.out.print(" Select a search option: ");
-                    int searchOption = myScanner.nextInt();
+                    System.out.println("Search pilot");
+                    String searchString = myScanner.nextLine();
+                    for (int i = 0; i < printListFromFile.size(); i++) {
+                        if (printListFromFile.get(i).contains(searchString)) {
+                            System.out.println(printListFromFile.get(i));
+                        }
+                    }
+                    System.out.println("1.  Search another pilot");
+                    System.out.println("2.  Back to main menu");
+                    int returnOrNo = myScanner.nextInt();
                     myScanner.nextLine();
-                    if (searchOption == 1){
-
-                    } else if (searchOption == 2){
-
-                    } else if (searchOption == 3){
-
-                    } else {
-                        System.out.println("Please select valid option");
+                    if (returnOrNo == 2) {
+                        keepSearching = false;
                     }
                 }
 
