@@ -75,6 +75,7 @@ public class Main {
                 System.out.print("Enter Pilot Number: ");
                 String pilotNumber = myScanner.nextLine();
                 pilotNumber = formatNum(pilotNumber);
+                //Overwrite functionality
                 String answer = "";
                 int index = 0;
                 boolean bool = false;
@@ -90,7 +91,7 @@ public class Main {
                         }
                     }
                 }
-
+                //Overwrite functionality ends
                 Contacts myPilot = new Contacts(pilotName, pilotCallsign, pilotNumber);
                 if (bool) {
                     Contacts overwritePilot = new Contacts(pilotName, pilotCallsign, pilotNumber);
